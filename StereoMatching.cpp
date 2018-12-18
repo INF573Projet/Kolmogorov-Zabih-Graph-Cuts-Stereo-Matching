@@ -6,6 +6,7 @@
 
 StereoMatching::StereoMatching(float K, float lamda, int minDisp, int maxDisp, int max_it) {
     /* Constructor: setting the parameters */
+    //TODO other parameters to add into arguments?
 }
 
 
@@ -16,7 +17,7 @@ void StereoMatching::setInputsAndParameters(const Mat &imgL, const Mat &imgR, co
 
 void StereoMatching::operator()(const Mat &imgL, const Mat &imgR, Mat &disparity) {
     setInputsAndParameters(imgL, imgR, this->D);
-    for(int i=0; i< this->D.max_it; i++){
+    for(int i=0; i< this->D.maxIter; i++){
         int alpha = 0; //TODO random value of alpha
         
     }

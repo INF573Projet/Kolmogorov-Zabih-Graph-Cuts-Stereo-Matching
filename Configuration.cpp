@@ -29,4 +29,3 @@ Mat Configuration::computeDisparity(){
     /* Compute the disparity given the assignments */
     return Mat();
 }
-
