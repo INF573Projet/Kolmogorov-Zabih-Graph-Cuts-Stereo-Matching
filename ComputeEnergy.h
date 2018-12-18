@@ -1,0 +1,12 @@
+//
+// Created by jiabin on 2018/12/18.
+//
+
+#ifndef KOLMOGOROV_STEREO_COMPUTEENERGY_H
+#define KOLMOGOROV_STEREO_COMPUTEENERGY_H
+
+class ComputeEnergy{
+    
+};
+
+#endif //KOLMOGOROV_STEREO_COMPUTEENERGY_H
