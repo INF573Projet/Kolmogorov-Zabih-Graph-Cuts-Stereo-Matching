@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(Kolmogorov_Stereo)
 
-set(CMAKE_CXX_STANDARD 14)
+FIND_PACKAGE(OpenCV REQUIRED)
 
-add_executable(Kolmogorov_Stereo main.cpp)
+add_executable(Kolmogorov_Stereo main.cpp image.cpp image.h)
+TARGET_LINK_LIBRARIES(Kolmogorov_Stereo ${OpenCV_LIBS})
