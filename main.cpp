@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     cout << "Hello, World!" << endl;
-    Image<Vec3b> img = Image<Vec3b> (imread("../images/right.png"));
+    Image<Vec3b> img = Image<Vec3b> (imread("../images/left.png"));
     cout << img << endl;
     imshow("Input", img);
     waitKey(0);
