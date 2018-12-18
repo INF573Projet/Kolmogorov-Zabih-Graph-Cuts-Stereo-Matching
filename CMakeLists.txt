@@ -3,5 +3,6 @@ project(Kolmogorov_Stereo)
 
 FIND_PACKAGE(OpenCV REQUIRED)
 
-add_executable(Kolmogorov_Stereo main.cpp image.cpp image.h ComputeEnergy.h GraphCut.cpp GraphCut.h)
+add_executable(Kolmogorov_Stereo main.cpp image.cpp image.h ComputeEnergy.h Configuration.cpp Configuration.h StereoMatching.cpp StereoMatching.h GraphCut.cpp GraphCut.h)
+
 TARGET_LINK_LIBRARIES(Kolmogorov_Stereo ${OpenCV_LIBS})
