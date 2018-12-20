@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 StereoMatching::StereoMatching(int minDisp, int maxDisp, int maxIter, bool is_L2, int denominator, int edgeThresh, int K, int lambda1, int lambda2) {
     Parameters param;
     param.is_L2 = is_L2;
@@ -23,18 +24,29 @@ StereoMatching::StereoMatching(int minDisp, int maxDisp, int maxIter, bool is_L2
     this->D = param;
 }
 
-void StereoMatching::setInputsAndParameters(const Mat &imgL, const Mat &imgR, const Parameters &parameters) {
+void StereoMatching::setInputsAndParameters(const Image<uchar> &imgL, const Image<uchar> &imgR, const Parameters &parameters) {
     /* Set the global variables in GraphCut */
     cout << "Setting parameters..." << endl;
 }
 
-void StereoMatching::operator()(const Mat &imgL, const Mat &imgR, Mat &disparity) {
+Image<Vec3b> StereoMatching::displayDisparity(Image<ushort> &disparity) {
+    Image<Vec3b> dispImg(disparity.width(), disparity.height(), Vec3b(255, 255, 0));
+    //TODO complete same as Python
+    return dispImg;
+
+}
+
+
+void StereoMatching::operator()(const Image<uchar> &imgL, const Image<uchar> &imgR, Image<ushort> &disparity) {
     cout << "Computing disparity..." << endl;
     setInputsAndParameters(imgL, imgR, this->D);
-    Configuration f();
-    for(int i=0; i< this->D.maxIter; i++){
+
+    Configuration f(imgL); // Set initial configuration where all assignments are inactive
+
+    for(int i=0; i< D.maxIter; i++){
         int alpha = 0; //TODO random value of alpha
+
         
     }
-    disparity =
+    disparity = f.getDisparity();
 }

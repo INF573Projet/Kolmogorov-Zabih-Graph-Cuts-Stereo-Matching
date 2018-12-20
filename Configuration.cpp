@@ -25,3 +25,8 @@ int Configuration::operator()(Coord p, int disp) const {
         return 0;
     }
 }
+
+Image<ushort>& Configuration::getDisparity() {
+    return disparity;
+}
+

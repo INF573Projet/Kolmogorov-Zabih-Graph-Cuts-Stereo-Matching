@@ -25,6 +25,7 @@ public:
     Configuration(const Image<uchar> &img, ushort alpha); // Unique configuration where all the disparity is equal to alpha
 
     int operator()(Coord coord, int disp) const ; // Returns assignment value: active or inactive
+    Image<ushort>& getDisparity() ; // Returning the pointer toward the disparity matrix
 
 };
 

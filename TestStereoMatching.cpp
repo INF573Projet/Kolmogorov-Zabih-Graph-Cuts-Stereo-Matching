@@ -28,10 +28,16 @@ int main() {
     int denominator = 8;
     bool is_L2 = true;
 
-    StereoMatching graphCut(minDisp,maxDisp,maxIter, is_L2, denominator, edgeThresh, K, lambda1, lambda2);
+    Image<uchar> imgL = img.greyImage();
+    Image<uchar> imgR = img.greyImage();
 
-    Mat disparity;
-    graphCut(img, img, disparity);
+    StereoMatching graphCut(minDisp, maxDisp, maxIter, is_L2, denominator, edgeThresh, K, lambda1, lambda2);
+
+    Image<ushort> disparity;
+    graphCut(imgL, imgR, disparity);
+
+    imshow("disparity", StereoMatching::displayDisparity(disparity));
+    waitKey(0);
 
     return 0;
 }
