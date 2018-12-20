@@ -13,20 +13,20 @@
 
 class GraphCut {
 public:
-    GraphCut(Image left, Image right, int alpha, Configuration f, Parameters p);
+    GraphCut(const Image<uchar>& left, const Image<uchar>& right, int alpha, Configuration& f, Parameters& p);
     ~GraphCut();
 
     void expansionMove(Configuration& new_f);
 
 private:
     Graph<short,short,int> g;
-    Image imgL;
-    Image imgR;
+    Image<uchar> imgL;
+    Image<uchar> imgR;
     int alpha;
     Configuration f;
     Parameters params;
 
-    Graph& buildGraph();
+    Graph<short,short,int>& buildGraph();
 
     void build_data_term(Coord pixel);
 

@@ -12,10 +12,19 @@ using namespace cv;
 
 class StereoMatching {
     Parameters D;
+    void setInputsAndParameters(const Image<uchar>& imgL, const Image<uchar>& imgR, const Parameters& parameters);
+
 public:
-    StereoMatching(float K, float lamda, int minDisp, int maxDisp, int max_it);
-    void setInputsAndParameters(const Mat& imgL, const Mat& imgR, const Parameters& parameters);
-    void operator() (const Mat& imgL, const Mat& imgR, Mat &disparity);
+    /* Constructors */
+    StereoMatching(int minDisp, int maxDisp, int maxIter, bool is_L2, int denominator, int edgeThresh, int K, int lambda1, int lambda2);
+
+    /* Destructor */
+    ~StereoMatching();
+
+    /* Methods */
+    void operator() (const Image<uchar>& imgL, const Image<uchar>& imgR, Image<short> &disparity);
+
+    static Image<Vec3b> dispImage(Image<short> &disparity) ; // Returning the disparity displayed in the same way as the demo
 
 };
 

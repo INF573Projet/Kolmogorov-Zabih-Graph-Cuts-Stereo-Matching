@@ -4,7 +4,12 @@
 
 #include "GraphCut.h"
 
-GraphCut::GraphCut(Image left, Image right, int alpha, Configuration f, Parameters p) {
+GraphCut::GraphCut(const Image<uchar>& left, const Image<uchar>& right, int alpha, Configuration& f, Parameters& p) {
+    imgL = left;
+    imgR = right;
+    this->alpha = alpha;
+    this->f = f;
+    params = p;
 
 }
 
@@ -17,11 +22,13 @@ void GraphCut::build_data_term(Coord pixel) {
 }
 
 void GraphCut::expansionMove(Configuration &new_f) {
-
+    new_f = Configuration(imgL, -1);
 }
 
-Graph &GraphCut::buildGraph() {
-    return <#initializer#>;
+Graph<short,short,int> &GraphCut::buildGraph() {
+    //TODO change
+    Graph<short, short, int> g(0,0);
+    return g;
 }
 
 void GraphCut::build_smothness_term(Coord pixelL, Coord pixelR) {

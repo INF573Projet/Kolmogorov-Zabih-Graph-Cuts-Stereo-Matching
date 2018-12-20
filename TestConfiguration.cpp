@@ -19,8 +19,10 @@ int main() {
 
     cout << img.size << endl;
 
-    Configuration f(img, 1, 12);
-    cout << f(383, 287, 0) << endl;
+    Image<uchar> grayImg = img.greyImage();
+
+    Configuration f(grayImg);
+    cout << f(Coord(383, 287), OCCLUDED::value) << endl;
 
     return 0;
 }

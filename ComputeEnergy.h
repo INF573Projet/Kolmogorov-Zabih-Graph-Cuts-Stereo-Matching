@@ -9,9 +9,9 @@
 
 struct Coord{
     Coord(int x, int y) : x(x), y(y) {}
-
     int x;
-    int y; };
+    int y;
+};
 
 struct Parameters
 {
@@ -26,6 +26,10 @@ struct Parameters
     int lambda2; ///< Smoothness cost across edge (should be <=lambda1)
     int K; ///< Penalty for inactive assignment
 
+    int minDisp; //Disparity search range
+    int maxDisp;
+
+
     int maxIter; ///< Maximum number of iterations
 
 
@@ -33,17 +37,17 @@ struct Parameters
 
 class ComputeEnergy{
 
-    int data_penalty_gray(Coord coordL, Coord coordR, const Image& left, const Image& right);
+    int data_penalty_gray(Coord coordL, Coord coordR, const Image<uchar>& left, const Image<uchar>& right);
 
-    int data_panalty_color(Coord coordL, Coord coordR, const Image& left, const Image& right);
+    int data_panalty_color(Coord coordL, Coord coordR, const Image<uchar>& left, const Image<uchar>& right);
 
-    int smoothness_penalty_gray(Coord coordP1, Coord coordP2, int disp, const Image& left, const Image& right);
+    int smoothness_penalty_gray(Coord coordP1, Coord coordP2, int disp, const Image<uchar>& left, const Image<uchar>& right);
 
-    int smoothness_penalty_color(Coord coordP1, Coord coordP2, int disp, const Image& left, const Image& right);
+    int smoothness_penalty_color(Coord coordP1, Coord coordP2, int disp, const Image<uchar>& left, const Image<uchar>& right);
 
-    int data_occlusion_penalty(Coord coordL, Coord coordR, const Image& left, const Image& right );
+    int data_occlusion_penalty(Coord coordL, Coord coordR, const Image<uchar>& left, const Image<uchar>& right );
 
-    int smoothness_penalty(Coord coordP1, Coord coordP2, int disp, const Image& left, const Image& right);
+    int smoothness_penalty(Coord coordP1, Coord coordP2, int disp, const Image<uchar>& left, const Image<uchar>& right);
 };
 
 #endif //KOLMOGOROV_STEREO_COMPUTEENERGY_H
