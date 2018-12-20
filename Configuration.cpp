@@ -4,28 +4,24 @@
 
 #include "Configuration.h"
 
-Configuration::Configuration(const Mat &conf) {
-    /* conf is a Cubic matrix */
-    if(validConfMatrix()){
-        this->conf = conf;
+Configuration::Configuration(const Image<ushort> &disparity) {
+    this->disparity = disparity;
+}
+
+Configuration::Configuration(const Image<uchar> &img) {
+    Image<ushort> disparity(img.width(), img.height(), OCCLUDED::value);
+    this->disparity = disparity;
+}
+
+Configuration::Configuration(const Image<uchar> &img, ushort alpha) {
+    Image<ushort> disparity(img.width(), img.height(), alpha);
+    this->disparity = disparity;
+}
+
+int Configuration::operator()(Coord p, int disp) const {
+    if(disparity(p.x, p.y) == disp){
+        return 1;
     } else {
-        throw std::invalid_argument("Configuration matrix isn't valid: need a 3D matrix with correct size");
+        return 0;
     }
-}
-
-Configuration::Configuration(const Mat &image, int minDisp, int maxDisp) {
-    /* Constructor with all inactive assignments, given an image and the disparity range */
-    int sizes[] = {image.rows, image.cols, maxDisp - minDisp + 1 };
-    Mat conf = Mat(3, sizes, CV_8U, Scalar(0));
-    this->conf = conf;
-}
-
-bool Configuration::validConfMatrix(){
-    /* Verify if the configuration matrix is a valid format */
-    return true;
-}
-
-Mat Configuration::computeDisparity(){
-    /* Compute the disparity given the assignments */
-    return Mat();
 }

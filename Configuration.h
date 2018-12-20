@@ -6,20 +6,25 @@
 #define KOLMOGOROV_STEREO_CONFIGURATION_H
 
 #include <opencv2/imgproc/imgproc.hpp>
+#include "image.h"
+#include "ComputeEnergy.h"
 
 using namespace cv;
 
+struct OCCLUDED
+{
+    static const int value = SHRT_MAX;
+};
+
 class Configuration {
-    Mat conf; // Cube matrix, shape = (w, h, maxDisp-minDisp+1)
-    Mat disparity;
+    Image<ushort> disparity; // Represents the unique configuration
 
 public:
-    Configuration(const Mat& conf); //constructor with explicit assignments
-    Configuration(const Mat& image, int minDisp, int maxDisp); //constructor with all inactive assignments, given an image and the disparity range
-    Mat computeDisparity();
-    bool validConfMatrix();
+    Configuration(const Image<ushort> &disparity); // Construct the unique configuration given the disparity map
+    Configuration(const Image<uchar> &img); // Initial configuration with all occluded pixels, corresponding to the size of the image
+    Configuration(const Image<uchar> &img, ushort alpha); // Unique configuration where all the disparity is equal to alpha
 
-    inline int operator()(int x, int y, int d) const { return conf.at<uchar>(y, x, d); } //Access the values of the assignment
+    int operator()(Coord coord, int disp) const ; // Returns assignment value: active or inactive
 
 };
 
