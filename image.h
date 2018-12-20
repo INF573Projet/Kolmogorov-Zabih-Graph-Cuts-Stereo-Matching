@@ -18,6 +18,11 @@ struct pixel_type<uchar>
 	static const int value = CV_8U;
 };
 template <>
+struct pixel_type<ushort>
+{
+	static const int value = CV_16S;
+};
+template <>
 struct pixel_type<Vec3b>
 {
 	static const int value = CV_8UC3;
@@ -34,6 +39,7 @@ public:
 	Image() {}
 	explicit Image(const Mat& A):Mat(A) {}
 	Image(int w,int h):Mat(h,w,pixel_type<T>::value) {}
+	Image(int w, int h, T initial):Mat(h,w,pixel_type<T>::value, initial) {}
 	// Accessors
 	inline T operator()(int x,int y) const { return at<T>(y,x); }
 	inline T& operator()(int x,int y) { return at<T>(y,x); }
