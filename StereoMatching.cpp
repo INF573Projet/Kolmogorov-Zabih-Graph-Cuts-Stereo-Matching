@@ -4,6 +4,7 @@
 
 #include "StereoMatching.h"
 #include "Configuration.h"
+#include "GraphCut.h"
 #include <iostream>
 
 using namespace std;
@@ -24,29 +25,37 @@ StereoMatching::StereoMatching(int minDisp, int maxDisp, int maxIter, bool is_L2
     this->D = param;
 }
 
+StereoMatching::~StereoMatching() {}
+
 void StereoMatching::setInputsAndParameters(const Image<uchar> &imgL, const Image<uchar> &imgR, const Parameters &parameters) {
     /* Set the global variables in GraphCut */
     cout << "Setting parameters..." << endl;
 }
 
-Image<Vec3b> StereoMatching::displayDisparity(Image<ushort> &disparity) {
+Image<Vec3b> StereoMatching::dispImage(Image<short> &disparity) {
     Image<Vec3b> dispImg(disparity.width(), disparity.height(), Vec3b(255, 255, 0));
-    //TODO complete same as Python
+    //TODO complete same as Python - flatten to eliminate OCCLUDED
     return dispImg;
 
 }
 
 
-void StereoMatching::operator()(const Image<uchar> &imgL, const Image<uchar> &imgR, Image<ushort> &disparity) {
+void StereoMatching::operator()(const Image<uchar> &imgL, const Image<uchar> &imgR, Image<short> &disparity) {
     cout << "Computing disparity..." << endl;
-    setInputsAndParameters(imgL, imgR, this->D);
+    setInputsAndParameters(imgL, imgR, D);
 
     Configuration f(imgL); // Set initial configuration where all assignments are inactive
 
-    for(int i=0; i< D.maxIter; i++){
-        int alpha = 0; //TODO random value of alpha
+    int dispRange = D.maxDisp - D.minDisp + 1;
 
-        
+    for(int i=0; i< D.maxIter; i++){
+        for(int j=0; j< dispRange; j++){
+            int alpha = 0; //TODO random value of alpha
+            GraphCut g(imgL, imgR, alpha, f, D);
+            Configuration new_f;
+            g.expansionMove(new_f);
+            f = new_f;
+        }
     }
     disparity = f.getDisparity();
 }

@@ -17,15 +17,21 @@ struct OCCLUDED
 };
 
 class Configuration {
-    Image<ushort> disparity; // Represents the unique configuration
+    Image<short> disparity; // Represents the unique configuration
 
 public:
-    Configuration(const Image<ushort> &disparity); // Construct the unique configuration given the disparity map
+    /* Constructors */
+    Configuration();
+    Configuration(const Image<short> &disparity); // Construct the unique configuration given the disparity map
     Configuration(const Image<uchar> &img); // Initial configuration with all occluded pixels, corresponding to the size of the image
-    Configuration(const Image<uchar> &img, ushort alpha); // Unique configuration where all the disparity is equal to alpha
+    Configuration(const Image<uchar> &img, short alpha); // Unique configuration where all the disparity is equal to alpha
 
+    /* Destructor */
+    ~Configuration();
+
+    /* Methods */
     int operator()(Coord coord, int disp) const ; // Returns assignment value: active or inactive
-    Image<ushort>& getDisparity() ; // Returning the pointer toward the disparity matrix
+    Image<short>& getDisparity() ; // Returning the pointer toward the disparity matrix
 
 };
 

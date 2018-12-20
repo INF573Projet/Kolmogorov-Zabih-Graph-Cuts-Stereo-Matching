@@ -4,19 +4,23 @@
 
 #include "Configuration.h"
 
-Configuration::Configuration(const Image<ushort> &disparity) {
+Configuration::Configuration() {}
+
+Configuration::Configuration(const Image<short> &disparity) {
     this->disparity = disparity;
 }
 
 Configuration::Configuration(const Image<uchar> &img) {
-    Image<ushort> disparity(img.width(), img.height(), OCCLUDED::value);
+    Image<short> disparity(img.width(), img.height(), OCCLUDED::value);
     this->disparity = disparity;
 }
 
-Configuration::Configuration(const Image<uchar> &img, ushort alpha) {
-    Image<ushort> disparity(img.width(), img.height(), alpha);
+Configuration::Configuration(const Image<uchar> &img, short alpha) {
+    Image<short> disparity(img.width(), img.height(), alpha);
     this->disparity = disparity;
 }
+
+Configuration::~Configuration() {}
 
 int Configuration::operator()(Coord p, int disp) const {
     if(disparity(p.x, p.y) == disp){
@@ -26,7 +30,7 @@ int Configuration::operator()(Coord p, int disp) const {
     }
 }
 
-Image<ushort>& Configuration::getDisparity() {
+Image<short>& Configuration::getDisparity() {
     return disparity;
 }
 

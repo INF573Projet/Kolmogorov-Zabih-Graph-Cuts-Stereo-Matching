@@ -18,7 +18,7 @@ struct pixel_type<uchar>
 	static const int value = CV_8U;
 };
 template <>
-struct pixel_type<ushort>
+struct pixel_type<short>
 {
 	static const int value = CV_16S;
 };
