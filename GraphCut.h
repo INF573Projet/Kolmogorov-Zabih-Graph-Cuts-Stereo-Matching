@@ -13,26 +13,27 @@
 
 class GraphCut {
 public:
-    GraphCut(Image left, Image right, int alpha, Configuration f, Parameters p);
+    GraphCut(Image left, Image right, Parameters p);
     ~GraphCut();
 
-    void expansionMove(Configuration& new_f);
+    void expansionMove(int alpha);
 
 private:
-    Graph<short,short,int> g;
     Image imgL;
     Image imgR;
-    int alpha;
-    Configuration f;
+    Coord imSizeL;
+    Coord imSizeR;
     Parameters params;
+    Mat conf_a; // matrix, shape = (w, h)
+    Mat conf_b; // (w, h)
+    Mat disparity; // (w, h)
+    int totalEnergy;
 
-    Graph& buildGraph();
+    void build_data_term(Graph& g, Coord pixel, int alpha);
 
-    void build_data_term(Coord pixel);
+    void build_smoothness_term(Graph& g, Coord pixelL, Coord pixelR, int alpha);
 
-    void build_smothness_term(Coord pixelL, Coord pixelR);
-
-    void build_uniqueness_term(Coord pixel);
+    void build_uniqueness_term(Graph& g, Coord pixel, int alpha);
 
 
 
