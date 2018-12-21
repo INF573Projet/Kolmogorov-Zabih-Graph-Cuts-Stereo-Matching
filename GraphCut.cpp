@@ -7,6 +7,14 @@
 #include "maxflow/graph.h"
 
 
+GraphCut::GraphCut(const Image<uchar>& left, const Image<uchar>& right, int alpha, Configuration& f, Parameters& p) {
+    imgL = left;
+    imgR = right;
+    alpha = alpha;
+    f = f;
+    params = p;
+}
+
 const struct Coord NEIGHBORS[] = { Coord(-1,0), Coord(0,1) }; // neighbours points
 typedef int node_id;
 static const node_id VAR_ALPHA = ((node_id)-1); // this value indicates that (o, p+alpha) is already activate
@@ -58,11 +66,13 @@ void GraphCut::build_data_term(Graph& g, Coord pixel, int alpha) {
 }
 
 
+
 void GraphCut::build_smoothness_term(Graph& g, Coord pixelL, Coord pixelR, int alpha) {
 
 }
 
 void GraphCut::build_uniqueness_term(Graph& g, Coord pixel, int alpha) {
+
 
 }
 
